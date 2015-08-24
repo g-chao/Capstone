@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+#lightChartDiv{
+	margin-left:10%;
+	margin-right:10%;
+}
+#lightChartDiv h1{
+	text-align:center;
+}
+
+#soundChartDiv{
+	margin-left:10%;
+	margin-right:10%;
+}
+#soundChartDiv h1{
+	text-align:center;
+}
+
+#motionChartDiv{
+	margin-left:10%;
+	margin-right:10%;
+}
+#motionChartDiv h1{
+	text-align:center;
+}

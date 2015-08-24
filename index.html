@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Capstone Team10</title>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="css/main.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+</head>
+<body>
+<h1>Sensor data display</h1>
+<h3>For testing, type "capstoneteam10" to search</h3>
+<div id="display-data"></div>
+
+<script type="text/template" id="searchForm-template">
+	<div class="form-group">
+		  <label for="usr">Name:</label>
+		  <input type="text" class="form-control" id="usr">
+		  <hr />
+		  <h4>Please select the date range</h4>
+		  <label for="from">From</label>
+		  <input type="text" id="from" name="from">
+		  <label for="to">to</label>
+		  <input type="text" id="to" name="to">
+		  <hr />
+		  <button type="button" class="btn btn-primary" id ='submitForLightData' data-sensor="lightrecord" >Light</button>
+		  <button type="button" class="btn btn-primary" id ='submitForSoundData' data-sensor="soundrecord" >Sound</button>
+		  <button type="button" class="btn btn-primary" id ='submitForMotionData' data-sensor="motionrecord" >Motion</button>
+	</div>
+
+	<div id= "lightChartDiv" style="display:none">
+	<h1>Light Sensor Data</h1>
+	    <canvas id="lightChart" height="350" width="600"></canvas>
+	</div>
+	<hr />
+	<div id= "soundChartDiv" style="display:none">
+	<h1>Sound Sensor Data</h1>
+	    <canvas id="soundChart" height="450" width="600"></canvas>
+	</div>
+	<hr />
+	<div id= "motionChartDiv" style="display:none">
+	<h1>Motion Sensor Data</h1>
+	    <canvas id="motionChart" height="450" width="600"></canvas>
+	</div>
+</div>
+</script>
+
+<script type="text/javascript" src="app/application.js"></script>
+
+
+<div id="errDateDialog" title="Date is invaild" style="display:none">
+  <p>There is no data within the date you selected! Please select another date. </p>
+</div>
+
+<script>
+$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+    options.url = 'http://52.26.51.149:3000/user';
+});
+</script>
+
+
+</body>
+</html>
