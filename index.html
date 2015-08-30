@@ -52,8 +52,12 @@
 </div>
 </script>
 
-<script type="text/javascript" src="app/application.js"></script>
 
+
+
+<script type="text/javascript" src="app/collections/UserData.js"></script>
+<script type="text/javascript" src="app/views/SensorDataDisplayForm.js"></script>
+<script type="text/javascript" src="app/application.js"></script>
 
 <div id="errDateDialog" title="Date is invaild" style="display:none">
   <p>There is no data within the date you selected! Please select another date. </p>
@@ -61,7 +65,7 @@
 
 <script>
 $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-    options.url = 'http://52.26.51.149:3000/user';
+    options.url = 'http://52.26.51.149:3000/'+ options.url;
 });
 </script>
 
