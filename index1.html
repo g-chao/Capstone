@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Capstone Team10</title>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="css/main.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+</div>
+
+<div id="loginAndRegisterForm">
+</div>
+
+<script type="text/template" id="login-register-template">
+  <button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button>
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <div class="modal-content" id="loginForm">
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+              <input type="text" class="form-control" id="usrname" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <input type="password" class="form-control" id="psw" placeholder="Enter password">
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="" checked>Remember me</label>
+            </div>
+              <button class="btn btn-success btn-block" id = "submitForLogin"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          <p>Not a member? <a href="#" id = "signUp">Sign Up</a></p>
+          <p>Forgot <a href="#">Password?</a></p>
+        </div>
+      </div>
+
+      <div class="modal-content" id="registerForm">
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Register</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+              <input type="text" class="form-control" id="usrname" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <input type="password" class="form-control" id="psw" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Re-Password</label>
+              <input type="password" class="form-control" id="psw" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-envelope"></span> E-mail</label>
+              <input type="email" class="form-control" id="psw" placeholder="Enter E-mail">
+            </div>
+              <button class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Register</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          <p>Already a member? <a href="#" id ="login">Login</a></p>
+        </div>
+      </div>
+    </div>
+  </div> 
+</script>
+
+
+
+
+
+
+
+<div id="display-data"></div>
+
+<script type="text/template" id="searchForm-template">
+<h1>Sensor data display</h1>
+<h3>For testing, type "capstoneteam10" to search</h3>
+	<div class="form-group">
+		  <label for="usr">Name:</label>
+		  <input type="text" class="form-control" id="usr">
+		  <hr />
+		  <h4>Please select the date range</h4>
+		  <label for="from">From</label>
+		  <input type="text" id="from" name="from">
+		  <label for="to">to</label>
+		  <input type="text" id="to" name="to">
+		  <hr />
+		  <button type="button" class="btn btn-primary" id ='submitForLightData' data-sensor="lightrecord" >Light</button>
+		  <button type="button" class="btn btn-primary" id ='submitForSoundData' data-sensor="soundrecord" >Sound</button>
+		  <button type="button" class="btn btn-primary" id ='submitForMotionData' data-sensor="motionrecord" >Motion</button>
+	</div>
+
+	<div id= "lightChartDiv" style="display:none">
+	<h1>Light Sensor Data</h1>
+	    <canvas id="lightChart" height="350" width="600"></canvas>
+	</div>
+	<hr />
+	<div id= "soundChartDiv" style="display:none">
+	<h1>Sound Sensor Data</h1>
+	    <canvas id="soundChart" height="450" width="600"></canvas>
+	</div>
+	<hr />
+    <div id= "motionChartDiv" style="display:none">
+	<h1>Motion Sensor Data</h1>
+	    <canvas id="motionChart" height="450" width="600"></canvas>
+	</div>
+</div>
+</script>
+
+
+
+
+<script type="text/javascript" src="app/collections/UserData.js"></script>
+<script type="text/javascript" src="app/views/SensorDataDisplayForm.js"></script>
+<script type="text/javascript" src="app/models/UserLogin.js"></script>
+<script type="text/javascript" src="app/views/LoginAndRegister.js"></script>
+<script type="text/javascript" src="app/routers/CapstoneRouter.js"></script>
+<script type="text/javascript" src="app/application.js"></script>
+<div id="errDateDialog" title="Date is invaild" style="display:none">
+  <p>There is no data within the date you selected! Please select another date. </p>
+</div>
+
+<script>
+$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+    options.url = 'http://localhost:3000/'+ options.url;
+});
+</script>
+
+
+</body>
+</html>

@@ -7,9 +7,11 @@ var SensorDataDisplayForm = Backbone.View.extend({
 	},
 		
 	displayLightData:function(ev){
+		
 		var startDate = new Date($('#from').val());
 		var endDate = new Date($('#to').val());
-		var username = $('#usr').val();		
+		var user = new User();
+		var username = user.username;		
 		var time = new Array();;
 		var light = new Array();
 		var sensor = $(ev.target).data('sensor');
@@ -77,7 +79,8 @@ var SensorDataDisplayForm = Backbone.View.extend({
 	displaySoundData:function(ev){	
 		var startDate = new Date($('#from').val());
 		var endDate = new Date($('#to').val());
-		var username = $('#usr').val();
+		var user = new User();
+		var username = user.username;
 		var time = new Array();;
 		var sound = new Array();
 		var sensor = $(ev.target).data('sensor');
@@ -146,7 +149,8 @@ var SensorDataDisplayForm = Backbone.View.extend({
 	displayMotionData:function(ev){
 		var startDate = new Date($('#from').val());
 		var endDate = new Date($('#to').val());
-		var username = $('#usr').val();
+		var user = new User();
+		var username = user.username;
 		var time = new Array();;
 		var motion = new Array();
 		var sensor = $(ev.target).data('sensor');
