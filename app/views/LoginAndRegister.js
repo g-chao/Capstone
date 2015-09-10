@@ -5,7 +5,7 @@ var LoginAndRegister = Backbone.View.extend({
 		'click #login':'showLogin',
 		'click #submitForLogin':'submitForLogin',
 		'click #logOutBtn':'logOut',
-		'click #submitForRegister':'submitForRegister'
+		'click #submitForRegister':'submitForRegister',
 	},
 	showSignUpForm:function(ev){
 		$('#loginForm').hide();
@@ -41,6 +41,10 @@ var LoginAndRegister = Backbone.View.extend({
 		this.render();
 	},
 	submitForRegister:function(){
+		var username = $('#registerForm #usrname').val();
+		var password = $('#registerForm #psw').val();
+		var rePassword = $('#registerForm #rePsw').val();
+		var email = $('#registerForm #email').val();
 		
 	},
 	render:function(){
