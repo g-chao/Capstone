@@ -90,21 +90,29 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
           <div role="form">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" id="usrname" placeholder="Enter username">
+              <input type="text" class="form-control" id="usrname" placeholder="Enter username" 
+              title="Username can only be numbers, characters, -, _. No space please ! .">
+              <span id = "usernameError"></span>
             </div>
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" id="psw" placeholder="Enter password">
+              <input type="password" class="form-control" id="psw" placeholder="Enter password"
+              title="Enter a combination of at least six numbers, letters and punctuation marks!">
+              <span id = "pswError"></span>
             </div>
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Re-Password</label>
               <input type="password" class="form-control" id="rePsw" placeholder="Enter password">
+              <span id = "rePswError"></span>
             </div>
             <div class="form-group">
-              <label for="psw"><span class="glyphicon glyphicon-envelope"></span> E-mail</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter E-mail">
+              <label for="email"><span class="glyphicon glyphicon-envelope"></span> E-mail</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter E-mail"
+              title="Please input a validate E-mail! E-mail is used for find back password and username">
+              <span id = "emailError"></span>
             </div>
-              <button class="btn btn-success btn-block" id = "submitForRegister"><span class="glyphicon glyphicon-off" ></span> Register</button>
+              <button class="btn btn-success btn-block" id = "submitForRegister" data-username = "false" 
+              data-psw = "false" data-rePsw = "false" data-email = "false" ><span class="glyphicon glyphicon-off" ></span> Register</button>
           </div>
         </div>
         <div class="modal-footer">
@@ -122,6 +130,8 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
 </div>
 <script type="text/javascript" src="app/cookie.js"></script>
 <script type="text/javascript" src="app/models/UserLogin.js"></script>
+<script type="text/javascript" src="app/models/CheckUsername.js"></script>
+<script type="text/javascript" src="app/models/CheckEmail.js"></script>
 <script type="text/javascript" src="app/views/LoginAndRegister.js"></script>
 <script type="text/javascript" src="app/indexApp.js"></script>
 </body>
