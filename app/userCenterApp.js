@@ -9,12 +9,12 @@ window.onload = function(){
 	else 
 	{
 		alert("Please login first!");
-		window.location.replace("/Capstone");
+		window.location.replace("/");
 		
 	}
 
 }
 function logOut(){
 		document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-		window.location.replace("/Capstone");
+		window.location.replace("/");
 }
