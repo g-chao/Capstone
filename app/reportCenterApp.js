@@ -3,8 +3,6 @@ window.onload = function(){
 	if (user != "") 
 	{
 		$("#displayUsername").html(user);
-		var personalInfoView = new PersonalInfoView();
-        personalInfoView.render();
 	} 
 	else 
 	{

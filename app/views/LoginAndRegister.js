@@ -9,7 +9,11 @@ var LoginAndRegister = Backbone.View.extend({
 		'focusout #registerForm #usrname':'validateUsername',
 		'focusout #registerForm #psw':'validatePsw',
 		'focusout #registerForm #rePsw':'validateRePsw',
-		'focusout #registerForm #email':'validateEmail'
+		'focusout #registerForm #email':'validateEmail',
+		'keypress #registerForm #usrname':'validateUsername',
+		'keypress #registerForm #psw':'validatePsw',
+		'keypress #registerForm #rePsw':'validateRePsw',
+		'keypress #registerForm #email':'validateEmail'
 	},
 	showSignUpForm:function(ev){
 		$('#loginForm').hide();
@@ -51,29 +55,30 @@ var LoginAndRegister = Backbone.View.extend({
 		if(username.length<=5){
 			$('#usernameError').html("Username length should not be less than 5 !");
 			$('#usernameError').css("color","red");
-			$('#submitForRegister').data('username') == "false";
+			cname = '';
 		}
 		else if(!username.match("^[a-zA-Z0-9_.-]*$")){
 			$('#usernameError').html("Username format is not correct!");
 			$('#usernameError').css("color","red");
-			$('#submitForRegister').data('username') == "false";
+			cname = '';
 		}
 		else{
 			var checkUsername = new CheckUsername();
 			checkUsername.save({username:username},{
 				success:function(){
-					$('#submitForRegister').data('username') == "true";
+					cname = 'yes';
 					$('#usernameError').html("Your username is ready for register!");
 					$('#usernameError').css("color","green");
-					return true;
+					chkreg();
 				},
 				error:function(model,response){
-					$('#submitForRegister').data('username') == "false";
+					cname = '';
 					$('#usernameError').html(response.responseJSON.Message);
 					$('#usernameError').css("color","red");
 				}
 			});
 		}
+		chkreg();
 	},
 
 	validatePsw:function(){
@@ -81,14 +86,15 @@ var LoginAndRegister = Backbone.View.extend({
 		if(psw.length<= 5){
 			$('#pswError').html("Password length should not be less than 6 !");
 			$('#pswError').css("color","red");
-			$('#submitForRegister').data('psw') == "false";
+			cpwd1 = '';
 		}
 		else{
 			$('#pswError').html("Good!");
 			$('#pswError').css("color","green");
-			$('#submitForRegister').data('psw') == "true";
-			return true;
+			cpwd1 = 'yes';
+			chkreg();
 		}
+		chkreg();
 
 	},
 	validateRePsw:function(){
@@ -97,14 +103,15 @@ var LoginAndRegister = Backbone.View.extend({
 		if(psw == rePsw){
 			$('#rePswError').html("Good!");
 			$('#rePswError').css("color","green");
-			$('#submitForRegister').data('rePsw') == "true";
-			return true;
+			cpwd2 = 'yes';
+			chkreg();
 		}
 		else{
 			$('#rePswError').html("Password is not same!");
 			$('#rePswError').css("color","red");
-			$('#submitForRegister').data('rePsw') == "false";
+			cpwd2 = '';
 		}
+		chkreg();
 
 	},
 	validateEmail:function(){
@@ -114,42 +121,50 @@ var LoginAndRegister = Backbone.View.extend({
 		{
 			$('#emailError').html("Please input a correct format E-mail !");
 			$('#emailError').css("color","red");
-			$('#submitForRegister').data('email') == "false";
+			cemail = '';
 			
 		}
 		else {
 			var checkEmail = new CheckEmail();
 			checkEmail.save({email:email},{
 				success:function(){
-					$('#submitForRegister').data('email') == "true";
+					cemail = 'yes';
 					$('#emailError').html("Your E-mail is ready for register!");
 					$('#emailError').css("color","green");
-					return true;
+					chkreg();
 				},
 				error:function(model,response){
-					$('#submitForRegister').data('email') == "false";
+					cemail = '';
 					$('#emailError').html(response.responseJSON.Message);
 					$('#emailError').css("color","red");
 				}
 			});
 		}
+		chkreg();
 
 	},
 
 	submitForRegister:function(){
-		if(this.validateUsername()&&this.validatePsw()&&this.validateRePsw()&&this.validateEmail())
-		{
-			var username = $('#registerForm #usrname').val();
-			var password = $('#registerForm #psw').val();
-			var rePassword = $('#registerForm #rePsw').val();
-			var email = $('#registerForm #email').val();
+		
+		var userRegister = new UserRegister();		
+		var userDetails = {
+			username: $('#registerForm #usrname').val(),
+			password: $('#registerForm #psw').val(),
+			email: $('#registerForm #email').val()		
 		}
-		else{
-			alert("Please");
-		}
+		userRegister.save(userDetails,{
+			success:function(model,response){
+				setCookie("username", response.username, 0.05);
+				location.reload();
+			},
+			error:function(model,response){
+				alert(response.responseJSON.Message);
+			}
+		});
+
 		
 		
-	},
+   },
 
 	render:function(){
 		var template = _.template($('#login-register-template').html());
@@ -176,9 +191,8 @@ var LoginAndRegister = Backbone.View.extend({
 		      })
 		      .insertAfter( "form" );
 		 });
-	
-
-
+				 
+	    $('#submitForRegister').attr("disabled", "disabled");
 		var user = getCookie("username");
 		if (user != "") 
 		{
