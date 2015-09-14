@@ -204,6 +204,7 @@ var LoginAndRegister = Backbone.View.extend({
 		{
 			$("#loginBtn").show();
 			$("#loginDiv").hide();
+			$("#logOutBtn").hide();
 		}
 	}
 });

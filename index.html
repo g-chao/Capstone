@@ -21,13 +21,17 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
 </head>
 <body>
 
-<div id="loginAndRegisterForm">
+
+<div class="container"> 
+  <div id="loginAndRegisterForm">
+  </div>
+  <h3>To be continue</h3>
+  <p>Welcome to our capstone project! Copyright by Chao Guo, Hengxin Cui, Lei Xu, Tao Tang and Yixin Wu</p>
 </div>
 
 
 <script type="text/template" id="login-register-template">
-
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="index.html">Capstoneteam10</a>
@@ -40,11 +44,9 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         <li><a href="reportCenter.html">Report Center</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <button type="button" class="btn btn-default btn-lg" id="loginBtn">Login</button>
-		<div id = "loginDiv">
-		<li ><a href="userCenter.html" id="displayUsername"><span class="glyphicon glyphicon-user"></span></a></li>
-        <button type="button" class="btn btn-default btn-lg" id="logOutBtn">Log out</button>
-		</div>
+        <li id="loginBtn"><button type="button" class="btn btn-default btn-lg" ">Login</button></li>
+    		<li id="loginDiv"><a href="userCenter.html" id="displayUsername"><span class="glyphicon glyphicon-user"></span></a></li>
+        <li id="loginDiv"><button type="button" class="btn btn-default btn-lg" id="logOutBtn">Log out</button></li>
       </ul>
     </div>
   </div>
@@ -123,10 +125,7 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
   </div> 
 </script>
  
-<div class="container">
-  <h3>To be continue</h3>
-  <p>Welcome to our capstone project! Copyright by Chao Guo, Hengxin Cui, Lei Xu, Tao Tang and Yixin Wu</p>
-</div>
+
 <script type="text/javascript" src="app/cookie.js"></script>
 <script type="text/javascript" src="app/models/UserLogin.js"></script>
 <script type="text/javascript" src="app/models/CheckUsername.js"></script>
