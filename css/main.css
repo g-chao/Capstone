@@ -23,15 +23,12 @@
 #motionChartDiv h1{
 	text-align:center;
 }
-.modal-header, h4, .close {
-  background-color: #5cb85c;
+.modal-header, .modal-header h4, .close {
+  background-color:#3591E5;
   color:white !important;
   text-align: center;
   font-size: 30px;
 }
 .modal-footer {
   background-color: #f9f9f9;
-}
-.container{
-	margin-top: 20px;
 }

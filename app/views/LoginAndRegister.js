@@ -36,7 +36,7 @@ var LoginAndRegister = Backbone.View.extend({
 		userLogin.save(userDetails,{
 			success:function(model,response){
 				setCookie("username", response.username, 0.05);
-				location.reload();
+				window.location.replace("main.html");
 			},
 			error:function(model,response){
 				alert(response.responseJSON.Message);
