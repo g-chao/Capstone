@@ -4,17 +4,14 @@ var SensorDataDisplayForm = Backbone.View.extend({
 		'click #submitForLightData':'displayLightData',
 		'click #submitForSoundData':'displaySoundData',
 		'click #submitForMotionData':'displayMotionData',
-	},
-		
-	displayLightData:function(ev){
-		
+	},	
+	displayLightData:function(ev){	
 		var startDate = new Date($('#from').val());
 		var endDate = new Date($('#to').val());
 		var username = getCookie("username");		
 		var time = new Array();;
 		var light = new Array();
-		var sensor = $(ev.target).data('sensor');
-		
+		var sensor = $(ev.target).data('sensor');	
 		var userData = new UserData();
          userData.fetch({
 			data: $.param({username:username,sensor:sensor}),
@@ -74,7 +71,6 @@ var SensorDataDisplayForm = Backbone.View.extend({
            }
         });						
 	},
-	
 	displaySoundData:function(ev){	
 		var startDate = new Date($('#from').val());
 		var endDate = new Date($('#to').val());
@@ -114,10 +110,8 @@ var SensorDataDisplayForm = Backbone.View.extend({
 						{
 							j++;
 						}
-					}
-					
-				}
-				
+					}			
+				}	
 				var soundChartData = {
 					labels : time,
 					datasets : [						
@@ -132,10 +126,8 @@ var SensorDataDisplayForm = Backbone.View.extend({
 							data : sound
 						}
 					]		
-				}
-				
-				$('#soundChartDiv').show();
-				
+				}			
+				$('#soundChartDiv').show();				
 				var ctx = document.getElementById("soundChart").getContext("2d");
 				window.myLine = new Chart(ctx).Line(soundChartData, {
 					responsive: true
@@ -143,7 +135,6 @@ var SensorDataDisplayForm = Backbone.View.extend({
            }
         });						
 	},
-	
 	displayMotionData:function(ev){
 		var startDate = new Date($('#from').val());
 		var endDate = new Date($('#to').val());
@@ -183,8 +174,7 @@ var SensorDataDisplayForm = Backbone.View.extend({
 						{
 							j++;
 						}
-					}
-					
+					}	
 				}
 				var motionChartData = {
 					labels : time,
@@ -201,9 +191,7 @@ var SensorDataDisplayForm = Backbone.View.extend({
 						}
 					]		
 				}
-				
-				$('#motionChartDiv').show();
-				
+				$('#motionChartDiv').show();				
 				var ctx = document.getElementById("motionChart").getContext("2d");
 				window.myLine = new Chart(ctx).Line(motionChartData, {
 					responsive: true
@@ -211,7 +199,6 @@ var SensorDataDisplayForm = Backbone.View.extend({
            }
         });						
 	},
-
 	render:function(){
 		var template = _.template($('#searchForm-template').html());              
         $("#display-data").html(template());

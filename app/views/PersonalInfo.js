@@ -14,16 +14,14 @@ var PersonalInfoView = Backbone.View.extend({
 	},
 	saveModifyPersonalInfo:function(ev){
 		var user = getCookie("username");
-		var userProfile = new UserProfile();
-		
+		var userProfile = new UserProfile();	
 		var userProfileDetails = {
 			username: user,
 			firstname: $('#firstname').val(),
 		    lastname: $('#lastname').val(),
 		    gender: $("input[type='radio'].gender:checked").val(),
 		    age: $('#age').val(),
-		};
-		
+		};	
 		userProfile.save(userProfileDetails,{
 			success:function(){				
 				var personalInfoView = new PersonalInfoView();

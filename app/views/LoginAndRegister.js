@@ -141,9 +141,7 @@ var LoginAndRegister = Backbone.View.extend({
 			});
 		}
 		chkreg();
-
 	},
-
 	submitForRegister:function(){
 		
 		var userRegister = new UserRegister();		
@@ -160,12 +158,8 @@ var LoginAndRegister = Backbone.View.extend({
 			error:function(model,response){
 				alert(response.responseJSON.Message);
 			}
-		});
-
-		
-		
+		});		
    },
-
 	render:function(){
 		var template = _.template($('#login-register-template').html());
 		$("#loginAndRegisterForm").html(template());
