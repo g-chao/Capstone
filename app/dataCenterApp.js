@@ -1,5 +1,6 @@
 window.onload = function(){
 	var user = getCookie("username");
+	var cxt1;
 	if (user != "") 
 	{
 		$("#displayUsername").html(user);

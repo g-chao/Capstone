@@ -5,21 +5,26 @@ var SensorDataDisplayForm = Backbone.View.extend({
 		'click #submitForSoundData':'displaySoundData',
 		'click #submitForMotionData':'displayMotionData',
 	},	
-	displayLightData:function(ev){	
-		var startDate = new Date($('#from').val());
-		var endDate = new Date($('#to').val());
-		var username = getCookie("username");		
+	displayLightData:function(ev){
+		var lightChartData = "";	
+		var selectDate = new Date($('#datepicker').val());
+		var username = getCookie("username");	
 		var time = new Array();;
 		var light = new Array();
 		var sensor = $(ev.target).data('sensor');	
 		var userData = new UserData();
          userData.fetch({
 			data: $.param({username:username,sensor:sensor}),
-          	success: function (userData) {				
+          	success: function (userData) {	
+				$("#lightChart").empty();			
 				for (i = 0; i<userData.models.length; i++)
 				{
+					
 					var dataDate = new Date(userData.models[i].attributes.date);
-					if(startDate <= dataDate && dataDate <= endDate)
+					console.log(dataDate);
+					console.log(selectDate);
+					console.log(selectDate == dataDate);
+					if(selectDate.getTime() == dataDate.getTime())
 					{
 						time.push(userData.models[i].attributes.time);
 				    	light.push(userData.models[i].attributes.lightrecord);
@@ -46,7 +51,7 @@ var SensorDataDisplayForm = Backbone.View.extend({
 					}
 				}
 				
-				var lightChartData = {
+				lightChartData = {
 					labels : time,
 					datasets : [						
 						{
@@ -62,18 +67,15 @@ var SensorDataDisplayForm = Backbone.View.extend({
 					]		
 				}
 				
-				$('#lightChartDiv').show();
-				
-				var ctx = document.getElementById("lightChart").getContext("2d");
-				window.myLine = new Chart(ctx).Line(lightChartData, {
+				$('#lightChartDiv').show();			
+				window.myLine = new Chart(ctx1).Line(lightChartData, {
 					responsive: true
 				});                				
            }
         });						
 	},
 	displaySoundData:function(ev){	
-		var startDate = new Date($('#from').val());
-		var endDate = new Date($('#to').val());
+		var selectDate = new Date($('#datepicker').val());
 		var username = getCookie("username");
 		var time = new Array();;
 		var sound = new Array();
@@ -81,11 +83,12 @@ var SensorDataDisplayForm = Backbone.View.extend({
 		var userData = new UserData();
          userData.fetch({
 			data: $.param({username:username,sensor:sensor}),
-          	success: function (userData) {				
+          	success: function (userData) {
+				$("#soundChart").empty();				
 				for (i = 0; i<userData.models.length; i++)
 				{
 					var dataDate = new Date(userData.models[i].attributes.date);
-					if(startDate <= dataDate && dataDate <= endDate)
+					if(selectDate.getTime() == dataDate.getTime())
 					{
 						time.push(userData.models[i].attributes.time);
 					    sound.push(userData.models[i].attributes.soundrecord);
@@ -136,31 +139,46 @@ var SensorDataDisplayForm = Backbone.View.extend({
         });						
 	},
 	displayMotionData:function(ev){
-		var startDate = new Date($('#from').val());
-		var endDate = new Date($('#to').val());
+		var selectDate = new Date($('#datepicker').val());
+		var nextDate = new Date(selectDate -1 + 1 + 86400000);
+		console.log(selectDate);
+		console.log(nextDate);
 		var username = getCookie("username");
 		var time = new Array();;
 		var motion = new Array();
 		var sensor = $(ev.target).data('sensor');
 		var userData = new UserData();
          userData.fetch({
+			
 			data: $.param({username:username,sensor:sensor}),
-          	success: function (userData) {				
+          	success: function (userData) {	
+				$("#motionChart").empty();
+				console.log(userData);			
 				for (i = 0; i<userData.models.length; i++)
 				{
 					var dataDate = new Date(userData.models[i].attributes.date);
-					if(startDate <= dataDate && dataDate <= endDate)
+					if(selectDate.getTime() == dataDate.getTime())
 					{
-						time.push(userData.models[i].attributes.time);
-					    motion.push(userData.models[i].attributes.motionrecord);
-					}	
+						if(userData.models[i].attributes.time.substring(16,18)>19){
+							time.push(userData.models[i].attributes.time.substring(16,24));
+					 		motion.push(userData.models[i].attributes.motionrecord);
+						}
+						
+					}
+					if(nextDate.getTime() == dataDate.getTime()){
+						if(userData.models[i].attributes.time.substring(16,18)<11){
+							time.push(userData.models[i].attributes.time.substring(16,24));
+					    	motion.push(userData.models[i].attributes.motionrecord);
+						}
+						
+					}
 				}
 				if(time.length==0)
 				{
 					$( "#errDateDialog" ).dialog();						
 					return;
 				}
-				
+				/*
 				if(time.length>10)
 				{
 					var j = 0;
@@ -176,6 +194,7 @@ var SensorDataDisplayForm = Backbone.View.extend({
 						}
 					}	
 				}
+				*/
 				var motionChartData = {
 					labels : time,
 					datasets : [						
@@ -202,24 +221,11 @@ var SensorDataDisplayForm = Backbone.View.extend({
 	render:function(){
 		var template = _.template($('#searchForm-template').html());              
         $("#display-data").html(template());
+		ctx1 = document.getElementById("lightChart").getContext("2d");
+
 			
-		$(function() {
-			$( "#from" ).datepicker({
-			  defaultDate: "+1w",
-			  changeMonth: true,
-			  numberOfMonths: 3,
-			  onClose: function( selectedDate ) {
-				$( "#to" ).datepicker( "option", "minDate", selectedDate );
-			  }
-			});
-			$( "#to" ).datepicker({
-			  defaultDate: "+1w",
-			  changeMonth: true,
-			  numberOfMonths: 3,
-			  onClose: function( selectedDate ) {
-				$( "#from" ).datepicker( "option", "maxDate", selectedDate );
-			  }
-			 });
- 	     });
+		 $(function() {
+			$( "#datepicker" ).datepicker();
+		  });
 	  },
 });
