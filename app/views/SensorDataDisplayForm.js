@@ -222,8 +222,7 @@ var SensorDataDisplayForm = Backbone.View.extend({
 		var template = _.template($('#searchForm-template').html());              
         $("#display-data").html(template());
 		ctx1 = document.getElementById("lightChart").getContext("2d");
-
-			
+	
 		 $(function() {
 			$( "#datepicker" ).datepicker();
 		  });

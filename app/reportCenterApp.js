@@ -3,6 +3,8 @@ window.onload = function(){
 	if (user != "") 
 	{
 		$("#displayUsername").html(user);
+		var sleepQualityDisplayForm = new SleepQualityDisplayForm();
+		sleepQualityDisplayForm.render();
 	} 
 	else 
 	{

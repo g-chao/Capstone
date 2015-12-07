@@ -69,6 +69,15 @@ var PersonalInfoView = Backbone.View.extend({
 				$('#motionOverview').html(response.responseText);
 			},
 		});
+		dataOverview.fetch({data:$.param({username: user,sensor:"report"}),
+			success:function(model, response){
+				$('#reportOverview').html(response.toString());
+				
+			},
+			error:function(model, response){
+				$('#reportOverview').html(response.responseText);
+			},
+		});
 		   
 		            
         

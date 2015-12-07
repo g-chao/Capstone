@@ -13,6 +13,7 @@ Sleep sensors, Sleep quality" />
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/circle.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -58,9 +59,25 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
     </div>
   </div>
 </nav>
-<h3>To be continue</h3>
-<p>Welcome to our capstone project! Copyright by Chao Guo, Hengxin Cui, Lei Xu, Tao Tang and Yixin Wu</p>
+<div id="display-sleep-quality">
+</div>
 </div> 
+<script type="text/template" id="searchSleepQuality-template">
+<h1>Please select the date you want to see your sleep quality</h1>
+	<div class="form-group">
+		  <p>Date: <input type="text" id="datepicker"></p>
+		  <button type="button" class="btn btn-primary" id ='submitForSleepQuality' >Search</button>
+	</div>
+	<hr />
+	<div class="c100 p50 big green" id="showQuality">
+		<span id = "quality">50%</span>
+		<div class="slice">
+			<div class="bar"></div>
+			<div class="fill"></div>
+		</div>
+	</div>
+</div>
+</script>
 	<div class="footer">
 		<div class="container">
 			<div class="footer-main">
@@ -74,24 +91,21 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
 			</div>
 		</div>
 		 <script type="text/javascript">
-									$(document).ready(function() {
-										/*
-										var defaults = {
-								  			containerID: 'toTop', // fading element id
-											containerHoverID: 'toTopHover', // fading element hover id
-											scrollSpeed: 1200,
-											easingType: 'linear' 
-								 		};
-										*/
-										
-										$().UItoTop({ easingType: 'easeOutQuart' });
-										
-									});
-								</script>
+			$(document).ready(function() {
+				
+				$().UItoTop({ easingType: 'easeOutQuart' });
+				
+			});
+		</script>
 		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 	</div> 
 <script type="text/javascript" src="app/cookie.js"></script>
+<script type="text/javascript" src="app/collections/SleepQuality.js"></script>
 <script type="text/javascript" src="app/reportCenterApp.js"></script>
+<script type="text/javascript" src="app/views/SleepQualityDisplayForm.js"></script>
+<div id="errDateDialog" title="Date is invaild" style="display:none">
+  <p>There is no data within the date you selected! Please select another date. </p>
+</div>
 </body>
 </html>
 
